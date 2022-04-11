@@ -15,6 +15,11 @@ import django_heroku
 import dj_database_url
 from decouple import config
 
+from whitenoise import WhiteNoise
+
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,7 +33,7 @@ SECRET_KEY = 'django-insecure-_tfv2b%9r0#889oq=ilxk!9b(jdz8@!@+b7dbk0+z$zsd-9!+5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dkspiid.herokuapp.com']
+ALLOWED_HOSTS = ['dkspiid.herokuapp.com','127.0.0.1:8000/']
 
 
 # Application definition
@@ -43,7 +48,6 @@ INSTALLED_APPS = [
     
     # my apps
     'heroku',
-    
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
 ]
@@ -125,12 +129,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,'staticfiles')
-]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
