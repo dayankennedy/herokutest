@@ -15,7 +15,7 @@ import django_heroku
 import dj_database_url
 from decouple import config
 
-from whitenoise import WhiteNoise
+
 
 
 
@@ -39,9 +39,6 @@ ALLOWED_HOSTS = ['dkspiid.herokuapp.com','127.0.0.1:8000/']
 # Application definition
 
 INSTALLED_APPS = [
-    "whitenoise.runserver_nostatic",
-    "django.contrib.staticfiles",
-    # my apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +51,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -128,20 +124,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 
-
-
-
-STATIC_ROOT =[
-    os.path.join(BASE_DIR,"staticfiles") 
-            ]
-
-
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # Default primary key field type
@@ -149,4 +139,6 @@ STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesSto
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-django_heroku.settings(locals())
+# Configure Django App for Heroku.
+import django_on_heroku
+django_on_heroku.settings(locals())
