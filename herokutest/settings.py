@@ -14,6 +14,7 @@ import os
 import django_heroku
 import dj_database_url
 from decouple import config
+from whitenoise import WhiteNoise
 
 
 
@@ -33,7 +34,7 @@ SECRET_KEY = 'django-insecure-_tfv2b%9r0#889oq=ilxk!9b(jdz8@!@+b7dbk0+z$zsd-9!+5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dkspiid.herokuapp.com/','127.0.0.1:8000/']
+ALLOWED_HOSTS = ['dkspiid.herokuapp.com','127.0.0.1:8000']
 
 
 # Application definition
