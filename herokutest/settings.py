@@ -16,7 +16,6 @@ import dj_database_url
 from decouple import config
 from whitenoise import WhiteNoise
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -129,11 +128,12 @@ STATICFILES_DIRS=[
 ]
 
 
-STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT=BASE_DIR/ 'staticfiles'
 
 
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 
 
 # Default primary key field type
